@@ -1,0 +1,16 @@
+.form-width {
+  min-width: 70%;
+}
+.form-group-width {
+  min-width: 95%;
+}
+.input-width {
+  min-width: 50%;
+  width: 100% !important;
+}
+.textarea-width {
+  resize: none;
+  min-width: 50%;
+  width: 100% !important;
+  min-height: 100px !important;
+}
