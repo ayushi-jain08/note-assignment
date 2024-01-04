@@ -20,7 +20,6 @@ const Note = () => {
   const navigate = useNavigate();
   const storedUserInfo = JSON.parse(localStorage.getItem("userDataInfo"));
   const deleteHandler = async (noteId) => {
-    console.log("id", noteId);
     if (window.confirm("Are You Sure?")) {
       await dispatch(deleteFetchNote({ noteId }));
       await dispatch(fetchNotes());

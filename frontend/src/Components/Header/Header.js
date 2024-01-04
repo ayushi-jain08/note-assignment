@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Form, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Container, Form, Nav, Navbar } from "react-bootstrap";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import "./Header.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,7 +10,7 @@ const Header = () => {
   const navigate = useNavigate();
   const users = useSelector((state) => state.user);
   const { currentUser } = users;
-  const { otherDeatils } = currentUser;
+
   const handleLogout = async () => {
     await dispatch(logout());
     await dispatch(clearError());
@@ -50,32 +50,20 @@ const Header = () => {
             >
               {currentUser ? (
                 <>
-                  <Nav.Link
-                    as={NavLink}
-                    to="/note"
-                    className="text-white font-size"
-                  >
+                  <Nav.Link as={NavLink} className="text-white font-size">
                     My Notes
                   </Nav.Link>
-                  <NavDropdown
-                    title={otherDeatils?.name}
-                    className="font-size"
-                    id="navbarScrollingDropdown"
+                  <Nav.Link
+                    as={NavLink}
+                    onClick={handleLogout}
+                    className="text-white font-size"
                   >
-                    <NavDropdown.Item>
-                      <Link to="/profile">My profile</Link>
-                    </NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item onClick={handleLogout}>
-                      Logout
-                    </NavDropdown.Item>
-                  </NavDropdown>
+                    Logout
+                  </Nav.Link>
                 </>
               ) : (
                 <Nav>
-                  <Nav.Link as={NavLink} to="/login">
-                    Login
-                  </Nav.Link>
+                  <Link to="/login">Login</Link>
                 </Nav>
               )}
             </Nav>

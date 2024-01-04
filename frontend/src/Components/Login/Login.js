@@ -22,6 +22,8 @@ const Login = () => {
       setMessage("Please fill all fields");
       return;
     }
+
+    await dispatch(fetchLogin({ email, password }));
     const storedUserInfo = JSON.parse(localStorage.getItem("userDataInfo"));
     if (storedUserInfo) {
       setShowSuccess(true);
@@ -29,7 +31,6 @@ const Login = () => {
         navigate("/note");
       }, 1000);
     }
-    await dispatch(fetchLogin({ email, password }));
   };
   useEffect(() => {
     dispatch(clearError());

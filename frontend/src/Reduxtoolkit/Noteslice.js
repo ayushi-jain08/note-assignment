@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-const HOST = "http://localhost:7070";
+const HOST = "https://note-assignment.onrender.com";
 // =====================FETCH NOTES===========================
 export const fetchNotes = createAsyncThunk(
   "data/fetchNotes",
