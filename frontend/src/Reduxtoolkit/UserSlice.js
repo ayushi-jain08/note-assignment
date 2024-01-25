@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-const HOST = "https://note-assignment.onrender.com";
+const HOST = "http://localhost:7070";
 //====================REGISTER USER=======================//
 export const fetchRegister = createAsyncThunk(
   "data/fetchRegister",

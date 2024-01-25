@@ -7,8 +7,14 @@ import { useDispatch, useSelector } from "react-redux";
 import Errormessage from "../../Components/Errormessage";
 import Loading from "../../Components/Loading/Loading";
 import MainScreen from "../../Components/MainScreen/MainScreen";
-import { deleteFetchNote, fetchNotes } from "../../Reduxtoolkit/Noteslice";
+import {
+  addCompletedTask,
+  deleteFetchNote,
+  fetchNotes,
+} from "../../Reduxtoolkit/Noteslice";
 import { toast } from "react-toastify";
+import { ImCheckboxChecked } from "react-icons/im";
+import { MdCheckBoxOutlineBlank } from "react-icons/md";
 
 const Note = () => {
   const dispatch = useDispatch();
@@ -23,10 +29,14 @@ const Note = () => {
     if (window.confirm("Are You Sure?")) {
       await dispatch(deleteFetchNote({ noteId }));
       await dispatch(fetchNotes());
-      toast.success("Your Notes deleted Successfully");
+      toast.success("Your task deleted Successfully");
     }
   };
-
+  const CompletedTask = async (taskId) => {
+    await dispatch(addCompletedTask({ taskId }));
+    await dispatch(fetchNotes());
+    toast.success("task mark as completed");
+  };
   useEffect(() => {
     if (!currentUser || !storedUserInfo) {
       navigate("/landingpage");
@@ -34,7 +44,7 @@ const Note = () => {
     dispatch(fetchNotes());
     // eslint-disable-next-line
   }, [dispatch]);
-  console.log("mm", notes);
+
   const date = (updatedAt) => {
     const dateObject = new Date(updatedAt);
     const year = dateObject.getFullYear();
@@ -52,7 +62,7 @@ const Note = () => {
       <MainScreen title={`Welcome back ${otherDeatils?.name}`}>
         <Link to="/createnote">
           <Button style={{ marginLeft: 10, marginBottom: 6 }} size="lg">
-            Create New Note
+            Create New Task
           </Button>
         </Link>
         {/* {deletingNote && <Loading />} */}
@@ -94,11 +104,37 @@ const Note = () => {
                         <div
                           style={{
                             display: "flex",
-
                             alignItems: "center",
                             flexWrap: "wrap",
+                            gap: "5px",
                           }}
                         >
+                          {note.completed ? (
+                            <button
+                              style={{
+                                border: "none",
+                                outline: "none",
+                                background: "transparent",
+                              }}
+                            >
+                              <ImCheckboxChecked
+                                style={{ color: "green", fontSize: "22px" }}
+                              />
+                            </button>
+                          ) : (
+                            <button
+                              style={{
+                                border: "none",
+                                outline: "none",
+                                background: "transparent",
+                              }}
+                              onClick={() => CompletedTask(note._id)}
+                            >
+                              <MdCheckBoxOutlineBlank
+                                style={{ fontSize: "22px" }}
+                              />
+                            </button>
+                          )}
                           <Link to={`/editnote/${note._id}`}>
                             <Button>Edit</Button>
                           </Link>

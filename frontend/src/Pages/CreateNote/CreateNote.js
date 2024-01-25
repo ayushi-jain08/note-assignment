@@ -44,7 +44,7 @@ const CreateNote = () => {
   };
 
   return (
-    <MainScreen title="create a note">
+    <MainScreen title="create a task">
       {message && (
         <Errormessage variant="danger" value={message}>
           {message}
@@ -86,7 +86,7 @@ const CreateNote = () => {
                 as={Col}
                 className="form-group-width"
               >
-                <Form.Label className="mt-2">Content</Form.Label>
+                <Form.Label className="mt-2">Description</Form.Label>
                 <Form.Control
                   className="textarea-width"
                   as="textarea"
@@ -97,7 +97,7 @@ const CreateNote = () => {
                 <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
               </Form.Group>
               <Button type="submit" variant="primary" className="m-2 mt-3">
-                Create Note
+                Create Task
               </Button>
               <Button
                 className="m-2 mt-3"

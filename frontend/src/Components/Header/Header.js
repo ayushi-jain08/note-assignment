@@ -28,7 +28,7 @@ const Header = () => {
         <Container className="padding">
           <Navbar.Brand>
             <NavLink to="/" className="text-white header">
-              Note Zipper
+              Task Creator
             </NavLink>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
@@ -51,7 +51,7 @@ const Header = () => {
               {currentUser ? (
                 <>
                   <Nav.Link as={NavLink} className="text-white font-size">
-                    My Notes
+                    My Tasks
                   </Nav.Link>
                   <Nav.Link
                     as={NavLink}

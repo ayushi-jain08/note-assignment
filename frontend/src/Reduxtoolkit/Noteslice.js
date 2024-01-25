@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-const HOST = "https://note-assignment.onrender.com";
+const HOST = "http://localhost:7070";
 // =====================FETCH NOTES===========================
 export const fetchNotes = createAsyncThunk(
   "data/fetchNotes",
@@ -131,6 +131,30 @@ export const FetchSingleNote = createAsyncThunk(
     }
   }
 );
+export const addCompletedTask = createAsyncThunk(
+  "data/addCompletedTask",
+  async ({ taskId }, { rejectWithValue }) => {
+    try {
+      const StoredUserInfo = JSON.parse(localStorage.getItem("userDataInfo"));
+      const response = await fetch(`${HOST}/api/notes/${taskId}/complete`, {
+        method: "PATCH",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${StoredUserInfo.token}`,
+        },
+      });
+      const data = await response.json();
+      if (response.ok) {
+        return data;
+      } else {
+        throw new Error("Failed to add completed task");
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 const initialState = {
   notes: [],
   singleNote: "",
@@ -204,6 +228,18 @@ const Noteslice = createSlice({
         state.error = null;
       })
       .addCase(FetchSingleNote.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(addCompletedTask.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(addCompletedTask.fulfilled, (state) => {
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(addCompletedTask.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });

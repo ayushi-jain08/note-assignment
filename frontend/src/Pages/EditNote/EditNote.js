@@ -56,7 +56,7 @@ const EditNote = () => {
   }, [dispatch, singleNote]);
 
   return (
-    <MainScreen title="Edit a note">
+    <MainScreen title="Edit a task">
       {message && (
         <Errormessage variant="danger" value={message}>
           {message}
@@ -98,7 +98,7 @@ const EditNote = () => {
                 as={Col}
                 className="form-group-width"
               >
-                <Form.Label className="mt-2">Content</Form.Label>
+                <Form.Label className="mt-2">Description</Form.Label>
                 <Form.Control
                   className="textarea-width"
                   as="textarea"
@@ -109,7 +109,7 @@ const EditNote = () => {
                 <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
               </Form.Group>
               <Button type="submit" variant="primary" className="m-2 mt-3">
-                Edit Note
+                Edit Task
               </Button>
             </Form>
           )}

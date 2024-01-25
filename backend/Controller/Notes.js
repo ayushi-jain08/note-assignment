@@ -100,3 +100,28 @@ export const DeleteNote = async (req, res, next) => {
     console.log(error);
   }
 };
+export const CompletedTask = async (req, res, next) => {
+  try {
+    const taskId = req.params.taskId;
+
+    // Check if the task exists
+    const task = await Note.findById(taskId);
+    if (!task) {
+      return res.status(404).send({ error: "Task not found!" });
+    }
+
+    // If the task is already marked as completed, do nothing
+    if (task.completed) {
+      return res
+        .status(400)
+        .send({ error: "Task is already marked as complete!" });
+    }
+    // Mark the task as completed
+    task.completed = true;
+    await task.save();
+
+    res.send(task);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};

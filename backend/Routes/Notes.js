@@ -1,6 +1,7 @@
 import express from "express";
 import { auth } from "../Utils/Auth.js";
 import {
+  CompletedTask,
   CreateNote,
   DeleteNote,
   GetAllNotes,
@@ -14,4 +15,5 @@ router.get("/get", auth, GetAllNotes);
 router.get("/getnotebyid/:noteId", auth, GetNoteById);
 router.patch("/updatenote/:noteId", auth, UpdateNote);
 router.delete("/deletenote/:noteId", auth, DeleteNote);
+router.patch("/:taskId/complete", auth, CompletedTask);
 export default router;
